@@ -1,0 +1,73 @@
+= Operator Deployment LAB
+
+Please be aware that setting up a Operator Lab will take about 15-20 minutes. So while the deployment is going on please wait for the pods to come up before accessing the Ansible Automation Platform. You can proceed with the installation procedures:
+
+. Log in to the Red Hat OpenShift Container Platform using your credentials form the RHDP login page.
+
+. Navigate to Ecosystem Software Catalog and search for *Ansible Automation Platform*.
++
+image::6.3.png[]
+
+. Search for *Ansible Automation Platform* and click *Install*.
++
+image::6.4.png[]
+
+. Select a *stable-2.7*.
++
+image::6.5.png[]
+
+. Select namespace as default which will be *aap* and wait for the Operator to be installed and shows the status as successful.
++
+image::6.6.png[]
+
+. Click *Install*.
++
+image::6.7.png[]
+
+. Go to *Installed Operators* and there you will see *Ansible Automation Platform* operator installed click on it. 
++
+image::6.8.png[]
+
+. Select project as *aap* if it's not aap. 
++
+image::6.9.png[]
+
+. There scroll to the option *Ansible Automation Platform* and click on *Create instance* which will deploy all the components of *AAP*.
++
+image::6.10.png[]
+
+. Provide the *Name* on which will be used to create the resources for that *AAP* like network routes,secrets. 
++
+image::6.11.png[]
++
+[Note] 
+====
+There are many other options that we can customize according to the requirement but in this we will be taking care of very basic deployment. 
+====
+
+. Click on *Create* it will deploy the resources which will take around 20 minutes. 
++
+image::6.12.png[]
+
+. On openshift dashboard *Click on* Networking and then *Routes* and click on the *ansible* route or the *Name* given in Step 11 above.
++
+image::6.13.png[]
++
+image::6.14.png[]
+
+. On openshift dashboard go to *Workloads* and then *Secrets* and search for *admin* . click on it and copy the *password*. 
++
+image::6.15.png[]
++
+image::6.16.png[]
++
+image::6.17.png[]
++
+image::6.18.png[]
+
+. Provide the *Red Hat login ID* to get the subscription for attaching it to the AAP and *60-day subscription to Red Hat Ansible® Automation Platform* or *Red Hat Developer Subscription for Individuals* subscription can be used for this lab.  
+
+. Submit it and run the *Project sync* of the *Demo project* to confirm the job is getting executed.
+
+Congratulations! You have successfully deployed the Ansible Automation Platform using the Operator method. You can now access the AAP web interface using the *admin* user and the *password* obtained from the secrets in OpenShift.
+

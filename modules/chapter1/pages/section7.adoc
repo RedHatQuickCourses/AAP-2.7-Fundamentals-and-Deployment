@@ -1,0 +1,13 @@
+= Summary
+
+. *Platform Components* - AAP 2.7 provides modular components: Automation Controller (command/control center), Automation Hub (content repository), Event-Driven Ansible (automated responses), execution/hop nodes (scalable  workers), and infrastructure (PostgreSQL, Redis, Automation Mesh).
+
+. *Architecture & Metrics* - Jobs flow from Platform Gateway authentication through Controller dispatch to containerized execution nodes with real-time results. The new Metrics Service collects anonymized usage statistics for  capacity planning without exposing sensitive data.
+
+. *Deployment Options* - Choose containerized installer (Podman on RHEL for air-gapped/full control) or operator-based (Kubernetes on OpenShift for simplified cloud-native operations with automatic provisioning).
+
+. *Capacity & High Availability* - Size from 8GB/2CPU (dev) to 64GB/16CPU (large production). Implement HA with multiple gateway/controller nodes, PostgreSQL clustering, and 3+ execution nodes. Backup databases daily and test restores quarterly.
+
+. *Security Practices* - Use Ansible Vault for secrets, rotate credentials every 90 days, implement RBAC with least privilege, enable TLS 1.2+, restrict database access, configure firewalls, and integrate audit logs with SIEM.
+
+. *Operational Management* - Organize by environment/business unit, version playbooks in Git, design reusable job templates, monitor with Prometheus/Grafana, track job success rates and resource utilization, and maintain architecture and DR documentation.

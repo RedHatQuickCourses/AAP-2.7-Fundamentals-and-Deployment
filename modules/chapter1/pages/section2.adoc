@@ -1,8 +1,97 @@
-= Section 2
-:page-audio-src: audio-file.wav
-:page-transcript-src: sample-transcript.txt
+= Architecture Overview
 
-* Create multiple copies of this section as needed.
-* Remove any unnecessary sections or chapter pages.
-* Customize the section as appropriate.
-* Ensure that each page contains a manageable amount of content.
+== How the Platform Works
+
+The following steps describe what happens when an automation job is submitted:
+
+image::arch.png[]
+
+**Step 1: User Authentication**
+ 
+- User logs in through the Platform Gateway (HTTPS port 443)
+- Gateway authenticates against the authentication backend
+- Session token is issued
+
+**Step 2: Job Creation**
+
+- User creates a job through the Automation Controller web UI or API
+- Controller validates the job template, inventory, and credentials
+- Job details are stored in the PostgreSQL database
+
+**Step 3: Job Execution**
+
+- Controller selects an available execution node (or uses the control plane)
+- Job is dispatched through the Receptor mesh network
+- Execution node pulls the execution environment container image
+- Ansible playbook runs inside the container
+
+**Step 4: Results Collection**
+
+- Job output streams back to the controller in real-time
+- Results are stored in the database
+- User can view progress through the web UI
+
+**Step 5: Event-Driven Response** (if configured)
+
+- Events from the job can trigger EDA rules
+- EDA can automatically launch additional jobs based on conditions
+
+[NOTE]
+====
+For example, when deploying a web application, the Controller runs the playbook, execution nodes perform the work on target servers, and if the deployment fails, EDA can automatically trigger a rollback job.
+====
+
+
+== Metrics Service Architecture
+
+AAP 2.7 includes a **Metrics Service** that collects anonymized usage data. Understanding this helps with capacity planning:
+
+*What it collects*:
+
+- Job execution statistics (success/failure counts, duration)
+- Host summary statistics (per host execution performance)
+- Credential type statistics (counts of credential types)
+- Execution environment statistics
+- Collection statistics
+- Ansible Automation Platform configurations like (Project SCM types, Organization counts, version Information, Feature flags, Warnings and Deprecation notices) 
+
+*What it does NOT collect*:
+
+- Job template names
+- Customer-defined credential names
+- Customer-defined execution environment names
+- Customer-defined collection names
+- Event data
+- Host inventory data
+- Playbook names
+- Variable names and values
+- Workflow template names
+
+[NOTE]
+====
+Only aggregated statistics and counts are transmitted. No personal data leaves your environment.
+====
+
+.Architecture Components:
+|===
+|Component | Container Name | Purpose 
+| **Metrics Web** | `automation-metrics-web` | Nginx proxy + Gunicorn serving Django application 
+| **Metrics Tasks** | `automation-metrics-tasks` | Background async task worker for job execution
+| **Metrics Scheduler** | `automation-metrics-scheduler` | APScheduler for periodic data collection 
+| **Init Container** | `automation-metrics-init` | One-shot container for database migrations 
+| **Metrics Database** | PostgreSQL | Stores processed metrics data 
+|===
+
+=== Data Flow:
+1. Scheduler triggers collection tasks every hour
+2. Tasks query automation controller database (read-only access)
+3. Raw data is processed and anonymized
+4. Anonymized metrics are stored in the metrics database
+5. Daily at 3:00 AM, data is anonymized and transmitted to Red Hat via Segment
+
+[TIP]
+====
+You can disable metrics collection by setting feature flags during installation.
+====
+
+

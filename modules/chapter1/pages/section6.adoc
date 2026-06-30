@@ -1,0 +1,39 @@
+= Operational Best Practices
+
+Following operational best practices helps maintain a scalable, secure, and manageable Ansible Automation Platform deployment.
+
+== Organization Structure
+
+Organize AAP resources to align with your business and operational requirements. Use *Organizations* to separate environments or business units, such as Production, Development, and Testing. Create *Teams* based on responsibilities, such as Web, Database, or Network teams. Group related automation content into *Projects* and organize managed hosts into *Inventories* based on their function or environment.
+
+== Content Organization
+
+Use Ansible Collections to package and manage related roles, modules, and plugins. Version collections consistently and use Automation Hub for certified content. For custom automation content, consider deploying a private Automation Hub.
+
+Store playbooks and related content in Git repositories and follow a structured branching strategy. Tag releases to simplify version tracking and implement validation checks to maintain content quality.
+
+Execution Environments (EEs) should include only the dependencies required for automation tasks. Version and test EEs before promoting them to production to ensure consistent and reliable execution.
+
+== Job Template Design
+
+Design job templates to be flexible and reusable. Use surveys and extra variables to collect user input, and apply inventory limits when targeting specific hosts. Implement proper error handling to improve reliability and simplify troubleshooting.
+
+A well-designed job template clearly defines the inventory, project, playbook, credentials, and user-provided parameters required for execution.
+
+== Monitoring and Observability
+
+Enable metrics collection to gain visibility into platform health and performance. Integrate with monitoring solutions such as Prometheus and Grafana, and configure alerts for job failures, long-running tasks, and system health issues.
+
+Monitor key metrics including job success and failure rates, execution duration, queue depth, execution node utilization, database performance, and container resource consumption. These insights help identify bottlenecks and support capacity planning.
+
+== Documentation
+
+Maintain clear and up-to-date documentation for both the platform and the automation content it manages. Platform documentation should include architecture diagrams, network information, inventory details, operational runbooks, disaster recovery procedures, and troubleshooting guidance.
+
+Automation documentation should describe the purpose of each playbook, required variables, dependencies, expected outcomes, and rollback procedures. Well-maintained documentation reduces troubleshooting time and improves operational efficiency during incidents.
+
+[TIP]
+====
+Investing time in documentation today can save significant effort during outages, upgrades, and troubleshooting activities.
+====
+

@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: "Product Enablement: AAP 2.7 Fundamentals and Deployment"
+  start_page: AAP-2.7-Fundamentals-and-Deployment::index.adoc
 
 content:
   sources:
