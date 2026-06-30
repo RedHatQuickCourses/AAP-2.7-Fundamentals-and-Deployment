@@ -1,10 +1,33 @@
-# About this Training
+# AAP 2.7 Fundamentals and Deployment
 
-**Click here: [![Contribute](https://www.eclipse.org/che/contribute.svg)](https://devspaces.apps.tools-na100.dev.ole.redhat.com/#https://github.com/RedHatQuickCourses/AAP-2.7-Fundamentals-and-Deployment) to start the development using devspace.**
 
-FIXME: Add short description about your training here.
+# Introduction
+
+Red Hat® Ansible® Automation Platform offers a simple solution to deploying applications. It gives you the power to deploy multi-tier applications reliably and consistently, all from one common framework. You can configure key services as well as push application files from one common system. And rather than writing custom code to automate your systems, your team writes simple task descriptions that even the newest team member can understand—saving not only upfront costs, but making it easier to react to change over time.
+
+Duration: 60 minutes
 
 # Objectives
 
-FIXME: Add here the list of objectives being covered in this training.
+On completing this course, you should be able to:
 
+- Describe the components, architecture, and features of Red Hat Ansible Automation Platform 2.7.
+- Evaluate infrastructure requirements and select the appropriate deployment topology.
+- Deploy AAP 2.7 using the containerized installer on Red Hat Enterprise Linux.
+- Deploy AAP 2.7 using the Operator on Red Hat OpenShift Container Platform.
+- Apply security and operational best practices to an AAP 2.7 deployment.
+
+# Contributors
+
+The PTL team acknowledges the valuable contributions of the following Red Hat associates:
+
+ - Amrinder Singh (Content Architect)
+ - Anna Swicegood (Learning Product Manager)
+
+# Prerequisites
+
+Before proceeding, you should be familiar with:
+
+- Basic Linux system administration on RHEL
+- Fundamental Ansible concepts (playbooks, inventories, and roles)
+- Networking basics (ports, firewalls, TLS)
